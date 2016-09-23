@@ -1,0 +1,114 @@
+{% extends 'cards/job_detail.html' %}
+{% load bootstrap_tags %}
+{% load staticfiles %}
+
+{% block extra_style %}
+<link href="{% static "css/datepicker.css" %}" rel="stylesheet" />
+{% endblock extra_style %}
+
+{% block extra_script %}
+{% include "_datepicker.html" %}
+{% endblock extra_script %}
+
+{% block head_title %}PrintSmart Quote Request{% endblock head_title %}
+
+{% block body %}
+<h1>PrintSmart Quote Request</h1>
+<form action="MAILTO:cbplusd@clemson.edu,jhintz@clemson.edu?subject=CB+D Quote Request" method="post" enctype="text/plain">
+    <div class="row">
+    <fieldset class="span6">
+        <legend>Job Info</legend>
+        <label for="jobname">Job Name:</label><input id="jobname" type="text" name="project n ame" />
+        <label for="jobnumber">Job Number:</label><input ik="jobnumber" type="text" name="job number" size="7"/><br />
+        <label for="duedate">In Hand By Date:</label> <input id="duedate" type="text" name="due date" class="datepicker"/>
+        <label for="description">Description:</label>
+        <textarea id="description" name="description"></textarea>
+        <label for="quantity">Quantities:</label><input type="text" id="quantity" name="quantities" />
+    </fieldset>
+    <fieldset class="span6">
+        <legend>Finishing</legend>
+        <label for="flatsize">Flat Size:</label><input type="text" id="flatsize" name="flat size" />
+        <label for="foldedsize">Folded Size:</label><input type="text" id="folded" name="folded size" />
+        <label for="foldtype">Fold Type:</label>
+        <select id="foldtype" name="foldtype">
+            <option value=""></option>
+            <option value="1">1</option>
+        </select>
+        <label for="scoring">Scoring</label>
+        <select id="scoring" name="scoring">
+            <option value=""></option>
+            <option value="no">no</option>
+            <option value="yes">yes</option>
+        </select>
+        <label for="perf">Perferation</label>
+        <select id="perf" name="perf">
+            <option value=""></option>
+            <option value="no">no</option>
+            <option value="yes">yes</option>
+        </select>
+        <label for="binding">Binding</label>
+        <select id="binding" name="binding">
+            <option value=""></option>
+            <option value="saddle stitch">saddle stitch</option>
+        </select>
+    </fieldset>
+</div>
+<div class="row">
+    <fieldset class="span6">
+        <legend>Text</legend>
+        <p>Include paper type and weight in "Text Paper."</p>
+        <p>"Number of Pages" will always be an even number.</p>
+        <label for="textpaper">Text Paper:</label><input type="text" id="textpaper" name="text paper type"/>
+        <label for="textinks">Text Inks:</label>
+        <select id="textinks" name="text inks">
+            <option value=""></option>
+            <option value="4/0">Color, Single Sided</option>
+            <option value="4/4">Color, Double Sided</option>
+            <option value="1/0">B&amp;W, Single Sided</option>
+            <option value="1/1">B&amp;W, Double Sided</option>
+            <option value="4/1">Color Side, B&amp;W Side</option>
+        </select>
+        <label for="textpages">Number of Text Pages:</label><input type="text" id="textpages" name="number text pages"/>
+    </fieldset>
+    <fieldset class="span6">
+        <legend>Cover</legend>
+        <p>Include paper type and weight in "Text Paper."</p>
+        <p>"Number of Pages" will always be an even number.</p>
+        <label for="coverpaper">Cover Paper:</label><input type="text" id="coverpaper" name="cover paper type"/>
+        <label for="coverinks">Cover Inks:</label>
+        <select id="coverinks" name="cover inks">
+            <option value=""></option>
+            <option value="4/0">Color, Single Sided</option>
+            <option value="4/4">Color, Double Sided</option>
+            <option value="1/0">B&amp;W, Single Sided</option>
+            <option value="1/1">B&amp;W, Double Sided</option>
+            <option value="4/1">Color Side, B&amp;W Side</option>
+        </select>
+        <label for="coverpages">Number of Cover Pages:</label><input type="text" id="coverpages" name="number cover pages"/>
+    </fieldset>
+</div>
+<div class="row">
+    <fieldset class="span6">
+        <legend>Additional Items</legend>
+        <label for="tabs">Tabs:</label><input type="text" id="tabs" name="tabs"/>
+        <label for="uvcoat">UV Coat</label>
+        <select id="uvcoat" name="uvcoat">
+            <option value=""></option>
+            <option value="no">no</option>
+            <option value="yes">yes</option>
+        </select>
+        <label for="shrinkwrap">Shrink Wrap and Packaging</label>
+        <select id="shrinkwrap" name="shrink wrap and packaging">
+            <option value=""></option>
+            <option value="no">no</option>
+            <option value="yes" selected>yes</option>
+        </select>
+        <label for="additional">Additional Items:</label>
+        <textarea id="additional" name="additional items"></textarea>
+    </fieldset>
+</div>
+<div class="form-actions">
+    <input type="submit" value="Send" class="btn btn-primary"> <input type="reset" value="Reset" class="btn">
+</div>
+</form><!--end form-->
+{%endblock body%}

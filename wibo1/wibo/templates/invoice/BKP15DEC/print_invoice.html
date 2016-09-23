@@ -1,0 +1,74 @@
+{% extends "site_base.html" %}
+{% load cards_extras %}
+{% load staticfiles %}
+
+{# inv = Invoice object #}
+{# jobs = InvQuantity objects #}
+
+{% block topbar_base %}{% endblock topbar_base %}
+
+{% block extra_style %}
+<link href={% static "css/print.css" %} rel="stylesheet" />
+{% endblock extra_style %}
+
+{% block body %}
+<div class="row-fluid"><img src={% static "img/invoiceheader2.png" %} />
+    <br /><br/>
+<h2>Invoice</h2>
+{% include "invoice/invoice.html" with inv=inv jobs=jobs %}
+<div style="page-break-before:always;">
+    <h2>Delivery Receipt</h2>
+    <b>Reference Number:</b> {{inv.invoice_number}}<br />
+    <b>Client:</b> {{inv.billing_contact}}<br />
+    <b>Payment Type:</b> {{inv.payment_type}}<br />
+    <table class="table table-bordered table-signature">
+        <tr>
+            <td>Designer</td>
+            <td>Date</td>
+        </tr>
+    </table>
+    <div class="row">
+    {% for j in jobs %}
+    <div class="span4">
+        {% include "cards/job_card.html" with c=j.job_card%}
+    </div>
+    {% endfor %}
+    </div>
+    {% if inv.balance > 0.0001 %}
+    <h2>Payment Information is Needed</h2>
+    {% if inv.payment_type == "IDO"%}
+    <h3>Inter-Departmental Order</h3>
+    <table class="table table-bordered table-signature">
+        <tr><td>Chartstring/Account Number</td><td class="span3">Wibo Payment #</td></tr>
+    </table>
+    {%else%}
+    <table class="table table-bordered table-signature">
+        <tr><td>Receipt Number</td><td class="span3">Wibo Payment #</td></tr>
+    </table>
+    <h3> OR </h3>
+    <h3>Web Invoice</h3>
+    <table class="table table-bordered table-signature">
+        <tr><td colspan=2>Bill To (personal / business)</td><td class="span3">Student XID Number</td></tr>
+        <tr><td colspan=3>Address</td></tr>
+        <tr><td>City</td><td class="span2">State</td><td>Postal Code</td></tr>
+    </table>
+    {%endif%}{#payment_type#}
+    {%endif%}{#payment info needed#}
+    <br />
+    <br />
+    <h3>Delivered To:</h3><br />
+    <table class="table table-bordered table-signature">
+        <tr>
+            <td>Sign</td>
+        </tr>
+        <tr>
+            <td>Print</td>
+        </tr>
+    </table>
+
+
+</div>
+</div>
+{% endblock body %}
+
+{% block footer %}{% endblock footer %}

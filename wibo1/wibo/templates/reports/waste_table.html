@@ -1,0 +1,156 @@
+{% load cards_extras %}
+<ul class="nav nav-pills">
+    <li><a href="#totals">Totals</a></li>
+    <li><a href="#jobs">By Job</a></li>
+    <li><a href="#users">By User</a></li>
+    <li><a href="#materials">By Material</a></li>
+</ul>
+<h3>Totals <a class="nav nav-pill" href="#"><i class="icon-arrow-up"></i></a></h3>
+<table id="totals" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Total jobs<br />(w/ waste)</th>
+            <th>Total revenue</th>
+            <th>Total cost</th>
+            <th>Potential profit<br />(w/o waste)</th>
+            <th>Potential profit %<br />(pot profit / revenue)</th>
+            <th>Actual profit<br/>(revenue - cost)</th>
+            <th>Actual Profit %<br />(act profit / revenue)</th>
+            <th>Total waste cost</th>
+            <th>Profit Waste %<br />(waste / pot profit)</th>
+            <th>Cost Waste %<br />(waste / cost)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{values.total_jobs}} ({{values.total_with_waste}})</td>
+            <td>{{values.total_revenue|currency}}</td>
+            <td>{{values.total_cost|currency}}</td>
+            <td>{{values.adjusted_profit|currency}}</td>
+            <td>{{values.adj_profit_percentage|percent}}</td>
+            <td>{{values.total_profit|currency}}</td>
+            <td>{{values.profit_percentage|percent}}</td>
+            <td>{{values.total_waste_cost|currency}}</td>
+            <td>{{values.waste_percentage|percent}}</td>
+            <td>{{values.waste_to_cost_percentage|percent}}</td>
+        </tr>
+    </tbody>
+</table>
+<h3>Waste By Job <a class="nav nav-pill" href="#"><i class="icon-arrow-up"></i></a></h3>
+<table id="jobs" class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Job Number</th>
+            <th>Job Name</th>
+            <th>Total Cost</th>
+            <th>Total Waste</th>
+            <th>Total Mat Cost</th>
+            <th>Total Mat Waste</th>
+            <th>Total Work Cost</th>
+            <th>Total Work Waste</th>
+            <th>Total Price</th>
+            <th>Profit Margin</th>
+            <th>Price Level</th>
+            <th>Designer</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for j in jobs %}
+        <tr>
+            <td><a href="{% url jobdetailurl job_number=j.pk %}">{{j.job_number}}</a></td>
+            <td><a href="{% url jobdetailurl job_number=j.pk %}">{{j.name}}</a></td>
+            <td><a href="{% url jobdetailurl job_number=j.pk %}">{{ jobs_extrainfo|lookup:j.job_number|lookup:'total'|currency }}</a></td>
+            <td><a href="{% url jobdetailurl job_number=j.pk %}">{{ jobs_extrainfo|lookup:j.job_number|lookup:'waste'|currency }}</a></td>
+            <td><a href="{% url jobdetailurl job_number=j.pk %}">{{j.cost|currency}}</a></td>
+            <td><a href="{% url jobdetailurl job_number=j.pk %}">{{j.waste_cost|currency}}</a></td>
+            <td><a href="{% url jobdetailurl job_number=j.pk %}">{{ jobs_extrainfo|lookup:j.job_number|lookup:'time_total'|currency }}</a></td>
+            <td><a href="{% url jobdetailurl job_number=j.pk %}">{{ jobs_extrainfo|lookup:j.job_number|lookup:'time_waste'|currency }}</a></td>
+            <td><a href="{% url jobdetailurl job_number=j.pk %}">{{j.price|currency}}</a></td>
+            <td><a href="{% url jobdetailurl job_number=j.pk %}">{{p_margin|lookup:j.job_number|currency}}</a></td>
+            <td><a href="{% url jobdetailurl job_number=j.pk %}">{{j.price_level}}</a></td>
+            <td><a href="{%url jobdetailurl job_number=j.pk %}">{{j.assigneduser}}</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<h3>By User <a class="nav nav-pill" href="#"><i class="icon-arrow-up"></i></a></h3>
+<table id="users" class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <th class="span3">Designer</th>
+            <th class="span6">Waste</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for u,v in by_user.items %}
+        <tr>
+            <td>{{u}}</td>
+            <td>
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>Jobs (total: {{v.count}} of {{v.total_jobs}})</th>
+                            <th>Mat Waste Cost (total: {{v.cost|currency}})</th>
+                            <th>Mat Cost (total: {{v.total_cost|currency}})</th>
+                            <th>Mat Waste % (total: {{v.ratio|percent}})</th>
+                            <th>Work Waste Cost (total: {{ v.total_wastet|currency}})</th>
+                            <th>Work Cost (total: {{ v.total_costt|currency}})</th>
+                            <th>Work Waste % (total: {{v.wratio|percent}})</th>
+                            <th>Total Waste (total: {{v.total_wastewt|currency}})</th>
+                            <th>Total Cost (total: {{v.total_costwt|currency}})</th>
+                            <th>Total Waste % (total: {{v.tratio|percent}})</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                {% for j,i in v.jobs.items %}
+                    <tr>
+                        <td><a href="{% url jobdetailurl job_number=j.pk%}">{{j.job_number}} {{j.name}}</a></td>
+                        <td>{{j.waste_cost|currency}}</td>
+                        <td>{{j.cost|currency}}</td>
+                        <td>{{j.waste_cost|divide:j.cost|percent}}</td>
+                        <td>{{i.total_wastet|currency}}</td>
+                        <td>{{i.total_costt|currency}}</td>
+                        <td>{{i.total_wastet|divide:i.total_costt|percent}}</td>
+                        <td>{{i.total_wastewt|currency}}</td>
+                        <td>{{i.total_costwt|currency}}</td>
+                        <td>{{i.total_wastewt|divide:i.total_costwt|percent}}</td>
+                {% endfor %}
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<h3>By Material <a href="#"><i class="icon-arrow-up"></i></a></h3>
+<table id="materials" class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <th>Material</th>
+            <th>Waste</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for mat, v in by_mat.items %}
+        <tr>
+            <td>{{mat}}</td>
+            <td><table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Jobs: {{v.jobs|length}}</th>
+                        <th>Units: {{v.units|floatformat:"-3"}} {{v.unitage}}</th>
+                        <th>Cost: {{v.cost|currency}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for j in v.jobs %}
+                    <tr>
+                        <td colspan=3><a href="{% url jobdetailurl j.pk%}">(#{{j.job_number}}) {{j.name}}</a></td>
+                    </tr>
+                    {%endfor%}
+                </tbody>
+            </table></td>
+        </tr>
+        {%endfor%}
+    </tbody>
+</table>

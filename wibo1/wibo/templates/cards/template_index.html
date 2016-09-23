@@ -1,0 +1,14 @@
+{% extends 'cards/product_index.html' %}
+
+{% block head_title %}Frequent Jobs{%endblock head_title %}
+
+{% block body %}
+<h2>Frequent Jobs</h2>
+<form action="" method="post">{% csrf_token %}
+    <div class="row">
+        {% for p in product_list %}
+        <div class="span4">{% include "cards/product_card.html" with p=p %}</div>
+        {% endfor %}
+    </div>{#row#}
+</form>
+{% endblock body %}

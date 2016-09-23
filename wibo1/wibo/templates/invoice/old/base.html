@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>{% block title %}CB+D App | Invoice {{ job.job_number }}{% endblock title%}</title>
+    </head>
+    <body>
+        {% block header %}
+        <header class="invoice">
+        <h1>Campus Banner + Design</h1>
+        <p>306 Fike Recreation Center<br />
+        Clemson, SC 29634</p>
+        <p><b>Phone</b> 864-656-6980<br />
+        <b>Email</b> cbplusd@clemson.edu<br />
+        <b>Web</b> <span class="italics">clemsondesign.com</span>
+        </header>
+        {% endblock header %}
+
+        {# float left #}
+        {% block left %}
+        {% endblock left %}
+
+        {# float right #}
+        {% block right %}
+        {% endblock right %}
+
+        {# main content #}
+        {% block content %}
+        {% endblock content %}
+
+        {# footer area #}
+        {% block footer %}
+        {% endblock footer %}
+        
+    </body>
+</html>

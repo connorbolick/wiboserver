@@ -1,0 +1,30 @@
+{% extends "site_base.html" %}
+{% load bootstrap_tags %}
+{% load staticfiles %}
+
+{% block head_title %}Inventory Report{% endblock head_title %}
+
+{% block extra_style %}
+<link href="{% static "css/datepicker.css" %}" rel="stylesheet" />
+{% endblock extra_style %}
+
+{% block extra_script %}
+<script src="{% static "js/bootstrap-datepicker.js" %}"></script>
+<script>
+    $(document).ready(function(){ 
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd'        
+        })});
+</script>
+{% endblock extra_script %}
+
+{% block body %}
+<h2>Inventory Report</h2>
+<p>The Inventory Report show the contents of the Materials in Wibo's inventory app.</p>
+<p>Press "excel" to export to excel.</p>
+<a href="?excel=excel" class="btn">Excel</a>
+
+{% include "reports/inventory_table.html" with inventory=inventory %}
+
+</form>
+{% endblock body%}

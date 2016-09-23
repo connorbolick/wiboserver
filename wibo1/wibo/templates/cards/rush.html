@@ -1,0 +1,14 @@
+{% extends 'cards/product_detail.html' %}
+{% load staticfiles %}
+
+{% block body %}
+<form action="" method="post">{% csrf_token %}
+    {{ rush_fee_type }}
+    {% include "formset_table.html" with formset=rush_fee_formset %}
+
+    <div class="form-actions">
+        <input class="btn btn-primary" type="submit" value="Save" />
+        <input class="btn" type="button" value="Cancel" onClick="history.go(-1);return true;" />
+    </div>
+</form>
+{% endblock body %}

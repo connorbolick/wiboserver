@@ -1,0 +1,6 @@
+<tr>
+    <td><a href="{% url invoice.views.detail results.object.id %}">Invoice {{results.object.id}}</a></td>
+    <td><a href="{% url invoice.views.detail results.object.id %}">{{results.object.invoice_date}}</a></td>
+    <td><a href="{% url invoice.views.detail results.object.id %}">{{results.object.grand_total}}</a></td>
+    <td><a href="{% url invoice.views.detail results.object.id %}">{{results.object.ballance}}</a></td>
+</tr>

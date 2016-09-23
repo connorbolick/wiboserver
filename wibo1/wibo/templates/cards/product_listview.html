@@ -1,0 +1,9 @@
+{# card = product card #}
+
+<tr>
+    <td>{{card.assigneduser}}</td>
+    <td><a href="{% url productdetailurl card.pk %}">{{card.name}}</a></td>
+    <td>{{card.status}}</td>
+    <td>{{card.due_date}}</td>
+    <td>{{card.prod_notes}}</td>
+</tr>

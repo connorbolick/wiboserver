@@ -1,0 +1,15 @@
+<div class="well span3" style="height:170px;overflow:hidden;">
+    <div class="row">
+        <div class="span1">
+            <h4><img src="{{MEDIA_URL}}{{e.photo}}" class="img-rounded" /></h4>
+        </div>
+        <div class="span2">
+            <h4><a href="{% url employeedetailurl e.pk %}">{{ e.full_name }}</a></h4>
+            <b>{{ e.title }}</b><br />
+            <b><a href="mailto:{{ e.email }}">{{ e.email }}</a></b><br />
+            <address><strong>Phone:</strong> {{ e.phone }}</address>
+            <b>Birthday:</b> {{e.birthday|date:"N d"}}<br />
+            <b>Graduation:</b> {{e.graduation|date:"N y"}}<br />
+        </div>
+    </div>
+</div>

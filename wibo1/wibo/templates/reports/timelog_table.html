@@ -1,0 +1,76 @@
+{% load cards_extras %}
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th class="roi_header">Everyone's Time: {{ totals.all|timeformat }}</th>
+            <th class="roi_header">Everyone's  Prod: {{ totals.prod|timeformat }} ({{ totals.prod|divide:totals.all|percent }})</th>
+            <th class="roi_header">Everyone's Rework: {{ totals.rework|timeformat }} ({{ totals.rework|divide:totals.all|percent }})</th>
+        </tr>
+    </thead>
+</table>
+
+{% for emp,j in by_emp.items %}
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th colspan="4" class="roi_header">{{ emp }}</th>
+        </tr>
+    </thead>
+
+
+        {% for job,jinfo in j.jobs.items %}
+            <thead>
+                <th colspan="4" align="left"><a href="{% url jobdetailurl job_number=job %}">{{ jinfo.name }}</a></th>
+            </thead>
+            {% for type, tinfo in jinfo.types.items %}
+                <thead>
+                    <tr>
+                        <th align="left">{{ type|capfirst }}</a></th>
+                        <th align="left">Time In</a></th>
+                        <th align="left">Time Out</a></th>
+                        <th align="left">Time Calculated</a></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in tinfo.logs %}
+                    </tr>
+                        <td></td>
+                        <td> {{ log.time_in }}</a> </td>
+                        <td> {{ log.time_out }} </td>
+                        <td> {{ log.calculated|timeformat }} </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        {% if type == 'rework time' %}
+                           <th>Total Rework: {{ tinfo.total|timeformat }} ({{ jinfo|lookup:'pr'|percent }})</th>
+                        {% else %}
+                           <th>Total Prod: {{ tinfo.total|timeformat }} ({{ jinfo|lookup:'pp'|percent }})</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+            {% endfor %}
+            <thead>
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>Total Time: {{ jinfo.total|timeformat }} </th>
+                </tr>
+            </thead>
+        {% endfor %}
+
+    <tfoot>
+        <tr>
+            <th class="roi_header"></th>
+            <th class="roi_header">Total Time: {{ j.totals|lookup:'all'|timeformat }}</th>
+            <th class="roi_header">Total Prod: {{ j.totals|lookup:'production time'|timeformat }} ({{ j|lookup:'pp'|percent }})</th>
+            <th class="roi_header">Total Rework: {{ j.totals|lookup:'rework time'|timeformat }} ({{ j|lookup:'pr'|percent }})</th>
+        </tr>
+    </tfoot>
+</table>
+{% endfor %}

@@ -1,0 +1,47 @@
+{% load cards_extras %}
+{% for company,clients in by_co.items %}
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th colspan ="5" align="left" class="roi_header">{{ company }}</th>
+        </tr>
+    </thead>
+
+        {% for client,info in clients.items %}
+        <thead>
+            <tr>
+                <th colspan ="5" align="left">{{ info.name }}, {{ info.dept }}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for job in info.jobs %}
+                <tr>
+                    <td></td>
+                    <td> <a href="{% url jobdetailurl job_number=job.pk %}">{{ job.name }}</a> </td>
+                    <td> Created: {{ job.created_date|date:"M d, Y" }} </td>
+                    <td> Invoiced: {{ job.invoice_date|date:"M d, Y"}} </td>
+                    <td> {{ job.price|currency }}</td>
+                </tr>
+            {% endfor %}
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>Total Revenue for {{ info.name }}: </th>
+                <th> {{ info.revenue|currency }}</th>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+    <tfoot>
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th>Total Revenue for {{ company }}:</th>
+            <th>{{ total_rev|lookup:company|currency }}</th>
+        </tr>
+    </tfoot>
+</table>
+{% endfor %}

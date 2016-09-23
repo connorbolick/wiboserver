@@ -1,0 +1,56 @@
+{% load cards_extras %}
+{% for roi,companies in by_roi.items %}
+<a id="{{roi}}" class="a_fix"></a>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th colspan ="6" align="left" class="roi_header">{{ roi }}</th>
+        </tr>
+    </thead>
+
+        {% for company,info in companies.items %}
+        <thead>
+            <tr>
+                <th colspan ="6" align="left">{{ company }}</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for dept,values in info.depts.items %}
+            <tr>
+                <td></td>
+                <td colspan="5" align="left"> <strong>{{ dept }}</strong></td>
+            </tr>
+                {% for job in values.jobs %}
+                    <tr>
+                        <td></td><td></td>
+                        <td> <a href="{% url jobdetailurl job_number=job.pk %}">{{ job.name }}</a> </td>
+                        <td> Created: {{ job.created_date|date:"M d, Y" }} </td>
+                        <td> Invoiced: {{ job.invoice_date|date:"M d, Y"}} </td>
+                        <td> {{ job.price|currency }}</td>
+                    </tr>
+                {% endfor %}
+            <tr>
+                <th colspan="4"></th>
+                <th>Total Revenue for {{ dept }}: </th>
+                <th> {{ values.revenue|currency }}</th>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+        <tr>
+            <th colspan="4"></th>
+            <th>Total Revenue for {{ company }}: </th>
+            <th>{{ info.c_rev|currency }}</th>
+        </tr>
+        {% endfor %}
+
+    <tfoot>
+        <tr>
+            <th colspan="4"></th>
+            <th>Total Revenue for {{ roi }}:</th>
+            <th>{{ total_rev|lookup:roi|currency }}</th>
+        </tr>
+    </tfoot>
+</table>
+{% endfor %}

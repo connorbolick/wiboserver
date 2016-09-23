@@ -1,0 +1,5 @@
+# requirements/deploy.txt
+-r common.txt
+
+gunicorn
+mysql-python

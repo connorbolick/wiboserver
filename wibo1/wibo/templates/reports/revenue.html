@@ -1,0 +1,51 @@
+{% extends "site_base.html" %}
+{% load bootstrap_tags %}
+{% load staticfiles %}
+
+{% block head_title %}Revenue Report{% endblock head_title %}
+
+{% block extra_style %}
+<link href="{% static "css/datepicker.css" %}" rel="stylesheet" />
+<link href="{% static "css/custom.css" %}" rel="stylesheet">
+{% endblock extra_style %}
+
+{% block extra_script %}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="{% static "js/bootstrap-datepicker.js" %}"></script>
+<script>
+    $(document).ready(function(){ 
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd'        
+        })});
+</script>
+<script src="{% static "js/backtotop.js" %}"></script>
+{% endblock extra_script %}
+<a id="#Top"></a>
+
+{% block body %}
+<h2>Revenue Report</h2>
+<p>The Revenue report pulls all jobs in the date range that have been billed (where JobCard.billed = True) and lists an ROI (where JobCard.job_roi_id is not null). It categorizes each job by its listed ROI and company and reports total revenue.</p>
+<p>Enter a date range below, or hit one of the buttons to generate the report for all jobs in the database. "List" displays the list below, "Excel" creates a spreadsheet that can be opened with Microsoft Excel.</p>
+<form method="get" action="">{#{% csrf_token %}#}
+    <div class="form-actions">
+        {{date_form|as_bootstrap}}
+        <input class="btn btn-primary" type="submit" name="list" value="List" />
+        <input class="btn" type="submit" name="excel" value="Excel" />
+    </div>
+<br/>
+    <table class="table table-bordered">
+        <tr>
+            {% for roi,v in by_roi.items %}
+            <td><a href="#{{roi}}">{{ roi }}</a></td>
+            {% endfor %}
+        </tr>
+    </table>
+
+{% include "reports/revenue_table.html" with by_roi=by_roi total_rev=total_rev%}
+
+{% for job in query %}
+{{job.name}} {{job.invoice_date}}<br />
+{% endfor %}
+</form>
+<a href="#" class="back-to-top">Back to Top</a>
+{% endblock body%}

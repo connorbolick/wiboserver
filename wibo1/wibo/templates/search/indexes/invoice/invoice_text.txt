@@ -1,0 +1,2 @@
+{{ object.invoice_number }}
+{{ object.invoice_notes }}

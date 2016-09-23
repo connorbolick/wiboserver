@@ -1,0 +1,16 @@
+{{ object.first_name }}
+{{ object.last_name }}
+{{ object.company }}
+{{ object.email }}
+{{ object.student_id }}
+
+{% for a in object.address_set.all %}
+{{ a.street_address }}
+{{ a.city }}
+{{ a.state }}
+{{ a.postal_code }}
+{%endfor%}
+
+{% for t in object.telephone_set.all %}
+{{ t.phone_number }}
+{% endfor %}

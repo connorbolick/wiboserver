@@ -1,0 +1,5 @@
+{{ object.job_name }}
+{{ object.job_number }}
+{{ object.billing_notes }}
+{{ object.dept_chartstring }}
+{{ object.approved_by }}

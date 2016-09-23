@@ -1,0 +1,81 @@
+{# cardlist = list of job card objects #}
+<table class="table table-striped table-hover table-condensed table-bordered">
+    <thead>
+        <tr>
+            <th class="span1">Designer</th>
+            <th class="span3">Job Name</th>
+            <th class="span1">Status</th>
+            <th class="span1">Next Due Date</th>
+            <th class="span1">Client Last Contacted</th>
+            <th class="span3">Notes</th>
+            {% if loggedin %}
+            {% if log_list and message2 == '' %}
+            <th>Log Out</th>
+            {% elif message2 == '' %}
+            <th>Prod Time</th>
+            <th>Rework Time</th>
+            {% endif %}
+            {% endif %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for c in cardlist %}
+        {% if c.attention %}
+        <tr class="info">
+            {% elif c.past_due == "close" %}
+            <tr class="success">
+                {% elif c.past_due == "today" %}
+                <tr class="warning">
+                    {% elif c.past_due == "past" %}
+                    <tr class="error">
+                        {% else %}
+                        <tr>
+                            {% endif %}
+                            <td class="span1">{{c.assigneduser}}</td>
+                            <td class="span3"><input name="job_checkbox" value="{{c.pk}}" type="checkbox" />
+                                <a href="{% url jobdetailurl c.job_number %}">{{c.name}} (#{{c.job_number}})</a>
+
+                                {% if c.past_due == "close" %}<span class="label label-success">Due Soon</span>{%endif%}
+
+                                {% if c.invoice_date %}<span class="label label-inverse">Invoiced</span>{%endif%}
+                                <br />
+                                {#{{c.contact}}#}</td>
+                        </td>
+                        <td class="span1">{% if c.status == "approved" or c.status == "in production" %}<span class="label label-success">
+                                {% elif c.status == "needs approval" %}<span class="label label-warning">
+                                    {% elif c.status == "ready for pickup" %}<span class="label label-info">
+                                        {%else%}<span class="label label-default">{%endif%}{{c.status}}</span></td>
+                                    <td class="span1">
+                                        {% if c.past_due == "close" %}
+                                        <span class="label label-success">
+                                            {% elif c.past_due == "today" %}
+                                            <span class="label label-warning">
+                                                {% elif c.past_due == "past" %}
+                                                <span class="label label-important">
+                                                    {%else%}
+                                                    <span class="label label-default">
+                                                        {%endif%}{{c.due_date}}</span></td>
+                                                <td class="span1">{{c.client_last_contacted}}</td>
+                                                <td class="span3"><div style="max-height:100px;overflow:auto;">{{c.prod_notes|linebreaks}}</div></td>
+                                                {% if loggedin %}
+                                                {% if log_list and message2 == '' %}
+                                                {%if log_list.job.job_number == c.job_number %}
+                                                {% if log_list.type == 'production time' %}
+                                                <td><a href="{% url logtasktimeurl log_list.job.job_number 'prod' %}">Stop Prod Time</a></td>
+                                                {% elif log_list.type == 'rework time' %}
+                                                <td><a href="{% url logtasktimeurl log_list.job.job_number 'rework' %}">Stop Rework Time</a></td>
+                                                {% endif %}
+                                                {% else %}
+                                                <td></td>
+                                                {% endif %}
+                                                {% elif message2 == ''  %}
+                                                <td><a href="{% url logtasktimeurl c.job_number 'prod' %}">Start Time</a></td>
+                                                <td><a href="{% url logtasktimeurl c.job_number 'rework' %}">Start Time</a></td>
+                                                {% endif %}
+                                                {% endif %}
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+
+

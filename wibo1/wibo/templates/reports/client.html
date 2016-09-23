@@ -1,0 +1,49 @@
+{% extends "site_base.html" %}
+{% load bootstrap_tags %}
+{% load staticfiles %}
+{% load django_select2_tags %}
+
+{% block head_title %}Client-Based Revenue Report{% endblock head_title %}
+
+{% block extra_style %}
+<link href="{% static "css/datepicker.css" %}" rel="stylesheet" type="text/css"/>
+<link href="{% static "css/custom.css" %}" rel="stylesheet" type="text/css"/>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+{% import_django_select2_js %}
+{% import_django_select2_css %}
+{% endblock extra_style %}
+
+{% block extra_script %}
+<script src="{% static "js/backtotop.js" %}"></script>
+<script src="{% static "js/bootstrap-datepicker.js" %}"></script>
+<script>
+    $(document).ready(function(){
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd'
+        })});
+</script>
+{% endblock extra_script %}
+<a id="#Top"></a>
+
+{% block body %}
+<h2>Client-Based Revenue Report</h2>
+<p>The client-based revenue report pulls all jobs in the date range that have been billed (where JobCard.billed = True). It categorizes each job by company and client, and reports total revenue.</p>
+<p>Enter part of a name, a date range, or hit one of the buttons to generate the report for all jobs in the database. </p>
+<p>"List" displays the list below, "Excel" creates a spreadsheet that can be opened with Microsoft Excel.</p>
+<form method="get" action="">{#{% csrf_token %}#}
+    <div class="form-actions">
+        {{form}} <br/><br/>
+        {{date_form|as_bootstrap}}
+        <input class="btn btn-primary" type="submit" name="list" value="List" />
+        <input class="btn" type="submit" name="excel" value="Excel" />
+    </div>
+<br/>
+
+{% include "reports/client_table.html" with by_co=by_co total_rev=total_rev%}
+
+{% for job in query %}
+{{job.name}} {{job.invoice_date}}<br />
+{% endfor %}
+</form>
+<a href="#" class="back-to-top">Back to Top</a>
+{% endblock body%}

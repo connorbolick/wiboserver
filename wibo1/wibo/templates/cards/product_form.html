@@ -1,0 +1,50 @@
+{% extends 'cards/product_detail.html' %}
+{% load bootstrap_tags %}
+{% load staticfiles %}
+
+{% block extra_style %}
+<link href="{% static "css/datepicker.css" %}" rel="stylesheet" />
+{% endblock extra_style %}
+
+{% block extra_script %}
+<script src="{% static "js/bootstrap-datepicker.js" %}"></script>
+<script>
+    $(document).ready(function(){ 
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd'        
+        })});
+</script>
+{% endblock extra_script %}
+
+{% block body %}
+
+<form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+    <div class="row">
+        <div class="span4">
+            <h3>Edit Item</h3>
+            {{ form|as_bootstrap }}</div>
+        <div class="span8">
+            <h3>Instructions</h3>
+            <b><b>Order Number:</b> If the job is for SAPUBs it will <em>always</em> have a Filemaker (or FM) number. Put that here (without the FM).</p>
+            <p><b><em>Due Date:</em></b> Every item <em>must</em> have a due date. If the client doesn't give you one, ask. If they still don't know, look at the production schedule and assign a due date (just make sure you tell the client).</p>
+            <p><b><em>Assigned User:</em></b> This is you. Or CB+D if you aren't taking the task on yourself.</p>
+            <p><b>Production Notes:</b> These notes are just for CB+D, the client won't see them. Give us as much detail as you can about what the client is looking for and what types of communication you've had with them. The more you put here, the easier it is for everyone else (and the fewer paniced phone calls you'll receive).</p>
+            <p><b>Client Notes:</b> Client notes are used to clarify things that might be confusing on the quote or invoice. These WILL show up on the quote and invoice the client recieves, so be professional.</p>
+            <p><b>Approved By:</b> This is the name of the client (or the client's finacial representative) who approved the quote for the job.</p>
+            <p><b>Approved On:</b> When we recieved quote approval.</p>
+            <p><b>Attention:</b> Mark the job as "Needs Attention!"</p>
+            <p><b><em>Status:</em></b> How far along is the job? Jobs that have been approved should be marked "In Production" if nothing else applies.</p>
+            <p><b>Job:</b> Which job does this item belong to? Only jobs that haven't been invoiced are listed here. If you're just editing an item for an invoiced job, leave this field blank.</p>
+
+
+
+        </div>
+    </div>{#row#}
+    {% include "formset_table.html" with formset=material_formset %}
+    <div class="form-actions">
+        <input class="btn btn-primary" type="submit" value="Save" />
+        <input class="btn" type="button" value="Cancel" onClick="history.go(-1);return true;" />    
+    </div>
+</form>
+
+{% endblock body %}

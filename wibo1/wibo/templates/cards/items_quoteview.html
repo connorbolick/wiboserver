@@ -1,0 +1,79 @@
+{# item = CardQuantity #}
+{# price_level = "INT" or "EXT" #}
+{% load cards_extras %}
+
+{% if item.qtype == "product" %}
+<tr>
+    <td><dl><dt>{{item.product.name}}</dt>
+            <dd>{{item.product.client_notes|default_if_none:""}}</dd>
+            {% for q in item.product.cardquantity_set.all %}
+            {% if q.qtype != "product" %}
+            <dd>{{q.units}} {{q.name}} {##}
+            {% if q.material.unit == "SQFT" %}
+            {{q.width}}" x {{q.height}}" ({{q.sqft|floatformat:"-3"}} sqft) {##}
+            {%endif%}{# sqft #}
+            {% if price_level == "INT" %}
+            ({{q.price_int|currency}})
+            {%elif price_level == "EXT" %}
+            ({{q.price_ext|currency}})
+            {%else%}PRICE LEVEL NOT DEFINED IN items_quoteview.html{%endif%}{#price#}
+            </dd>
+            {%endif%}{# card type #}
+            {%endfor%}{# item loop#}
+    </td>
+    <td>{{item.units}}</td>
+    <td>{% if price_level == "INT" %}{{item.product.price_int}}
+        {% elif price_level == "EXT"%}{{item.product.price_ext|currency}}
+        {%else%}<b>Internal:</b> {{item.product.price_int|currency}}<br />
+        <b>External:</b> {{item.product.price_ext|currency}}{%endif%}</td>
+    <td>{% if price_level == "INT" %}{{item.price_int|currency}}
+        {% elif price_level == "EXT"%}{{item.price_ext|currency}}
+        {%else%}<b>Internal:</b> {{item.price_int|currency}}<br />
+        <b>External:</b> {{item.price_ext|currency}}{%endif%}</td>
+</tr>
+{% elif item.qtype == "material" %}
+<tr>
+    <td>{{item.material.product_name}} ({{item.material.description}})</td>
+    <td>{{item.units}}</td>
+    <td>{% if price_level == "INT" %}{{item.material.price_int|currency}}
+        {% elif price_level == "EXT"%}{{item.material.price_ext|currency}}
+        {%else%}<b>Internal:</b> {{item.material.price_int|currency}}<br />
+        <b>External:</b> {{item.material.price_ext|currency}}{%endif%}</td>
+    <td>{% if price_level == "INT" %}{{item.price_int|currency}}
+        {% elif price_level == "EXT"%}{{item.price_ext|currency}}
+        {%else%}<b>Internal:</b> {{item.price_int|currency}}<br />
+        <b>External:</b> {{item.price_ext|currency}}{%endif%}</td>
+</tr>
+
+{% elif item.qtype == "service" %}
+<tr>
+    <td>{{item.service.name}}<br/>
+        {{item.service.client_notes}}</td>
+    <td>{{item.units}}</td>
+    <td>{% if price_level == "INT" %}{{item.service.price_int|currency}}
+        {% elif price_level == "EXT"%}{{item.service.price_ext|currency}}
+        {%else%}<b>Internal:</b> {{item.service.price_int|currency}}<br />
+        <b>External:</b> {{item.service.price_ext|currency}}{%endif%}</td>
+    <td>{% if price_level == "INT" %}{{item.price_int|currency}}
+        {% elif price_level == "EXT"%}{{item.price_ext|currency}}
+        {%else%}<b>Internal:</b> {{item.price_int|currency}}<br />
+        <b>External:</b> {{item.price_ext|currency}}{%endif%}</td>
+</tr>
+
+{% elif item.qtype == "adjustment" %}
+<tr>
+    <td>{{item.adjustment.name}}<br/>
+        {{item.adjustment.client_notes}}</td>
+    <td>{{item.units}}</td>
+    <td>{% if price_level == "INT" %}{{item.adjustment.price_int|currency}}
+        {% elif price_level == "EXT"%}{{item.adjustment.price_ext|currency}}
+        {%else%}<b>Internal:</b> {{item.adjustment.price_int|currency}}<br />
+        <b>External:</b> {{item.adjustment.price_ext|currency}}{%endif%}</td>
+    <td>{% if price_level == "INT" %}{{item.price_int|currency}}
+        {% elif price_level == "EXT"%}{{item.price_ext|currency}}
+        {%else%}<b>Internal:</b> {{item.price_int|currency}}<br />
+        <b>External:</b> {{item.price_ext|currency}}{%endif%}</td>
+</tr>
+
+{% else %}
+{% endif %}

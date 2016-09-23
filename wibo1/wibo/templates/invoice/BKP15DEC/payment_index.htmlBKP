@@ -1,0 +1,73 @@
+{% extends "site_base.html" %}
+{% load cards_extras %}
+{% load bootstrap_tags %}
+ {% load django_select2_tags %}
+
+{%block extra_script%}
+<script>
+    $('a').popover();
+</script>
+{%endblock extra_script%}
+
+{# payments = PaymentEvent objects #}
+{# inv = Invoice object #}
+
+{% block head_title %}Payments{%endblock head_title%}
+
+{%block body%}
+<h2>Payments</h2>
+<p><strong>Processed Payments</strong> have been: sent to SABO, put in the safe or forwarded to AR.<br />
+<strong>Received Payments</strong> have shown up on our account statement.</p>
+
+
+<form action="" method="post">{% csrf_token %}
+    <div class="row">
+        <div class="span3">{{action_form|as_bootstrap}}</div>
+        <div class="span1"><br/><input class="btn" type="submit" value="Go" /></div>
+    </div>
+    <table class="table table-striped table_condensed table-hover">
+        <thead>
+            <tr>
+                <th>Sel.</th>
+                <th>Ref. #</th>
+                <th>Inv. #</th>
+                <th>Date</th>
+                <th>Amount</th>
+                <th>Entered By</th>
+                <th>Processed</th>
+                <th>Received</th>
+                <th>Type</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for p in payments %}
+        <tr>
+            <td><input name="payment_checkbox" type="checkbox" value="{{p.pk}}" /></td>
+            <td>{{ p.pk }}</td>
+            <td><a href="{%url invoicedetailurl p.invoice.pk %}">{{ p.invoice.pk }}</a></td>
+            <td>{{ p.payment_date }}</td>
+            <td>{{ p.payment_amount|currency }}</td>
+            <td>{{ p.payment_user }}</td>
+            <td>{{ p.payment_processed }}</td>
+            <td>{{ p.payment_received }}</td>
+            <td>
+                {% if p.paymenteventcash %}
+                Cash
+                {% elif p.paymenteventcheck %}
+                Check
+                {% elif p.paymenteventido %}
+                IDO
+                {% elif p.paymenteventwebinvoice %}
+                Web Invoice
+                {% elif p.paymenteventmarketplace %}
+                Market Place
+                {% endif %}
+            </td>
+            <td><a  data-toggle="popover" title data-content="{{p.payment_notes}}" data-placement="left" data-original-title="Notes">{{ p.payment_notes|truncatechars:8 }}</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</form>
+{%endblock body%}

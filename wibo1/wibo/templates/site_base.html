@@ -1,0 +1,82 @@
+{% extends "theme_bootstrap/base.html"  %}
+{% load staticfiles %}
+
+{% load metron_tags %}
+{% load i18n %}
+ 
+{% block site_brand %}<a class="brand" href="/">wibo</a>{% endblock site_brand %}
+{% block extra_style %}
+<link href="{% static "css/print.css" %}" rel="stylesheet" media="print">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+{% endblock extra_style %}
+
+{% block nav %}
+<ul class="nav">
+    <li id="tab_first"><a href="{% url contacts.views.index %}"><i class="icon-book"></i> Contacts</a></li>
+    <li id="tab_second" class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="icon-th"></i> Products
+            <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="{% url templateindexurl %}">Product Templates</a></li>
+            <li><a href="{% url pickupindexurl %}">Ready for Pickup</a></li>
+        </ul>
+    </li>
+    <li id="tab_third" class="dropdown">
+    <a href="{% url jobsindexurl %}?sort=date" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="icon-th-large"></i> Jobs
+            <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="{% url jobsindexurl %}?sort=user">Job Queue</a></li>
+            <li><a href="{% url jobsindexurl %}?status=on%20hold">On Hold Jobs</a></li>
+            <li><a href="{% url jobsindexurl %}?status=cancelled">Cancelled Jobs</a></li>
+            <li><a href="{% url jobsindexurl %}?status=finished">Completed Jobs</a></li>
+            <li><a href="{% url newjoburl %}">New Job +</a></li>
+        </ul>
+    </li>
+        {#<li id="tab_third"><a href="{% url cards.views.job_index %}"><i class="icon-th-large"></i> Jobs</a></li>#}
+    <li id="tab_forth" class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <i class="icon-list-alt"></i> Invoices
+            <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="{% url invoice.views.index %}?view=unpaid">Unpaid Invoices</a></li>
+            <li><a href="{% url invoice.views.index %}?view=paid">Paid Invoices</a></li>
+            <li><a href="{% url invoice.views.payment_index %}">Payments</a></li>
+        </ul>
+    </li>
+    <li id="tab_fifth" class="dropdown">
+    <a href="{% url reportsindexurl %}" class="dropdown-toggle" data-toggle="dropdown">
+        <i class="icon-signal"></i> Reports
+        <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+        <li><a href="{% url sparreporturl %}">SPAR Report</a></li>
+        <li><a href="{% url wastereporturl %}">Waste Report</a></li>
+        <li><a href="{% url materialreporturl %}">Material Report</a></li>
+        <li><a href="{% url inventoryreporturl %}">Inventory Report</a></li>
+        <li><a href="{% url revenuereporturl %}">Revenue Report</a></li>
+        <li><a href="{% url clientreporturl %}">Client Report</a></li>
+        <li><a href="{% url timereporturl %}">Productivity Report</a></li>
+    </ul>
+    </li>
+    <!-- <li id="tab_sixth"><a href="/search"><i class="icon-search"></i> Search</a></li> -->
+</ul>
+{% endblock nav %}
+
+{% block extra_head_base %}
+    {% block extra_head %}{% endblock %}
+{% endblock %}
+
+{% block footer %}
+    {% include "_footer.html" %}
+{% endblock %}
+
+{% block extra_body_base %}
+{% analytics %}
+{% include "_analytics.html" %}
+{% block extra_body %}{% endblock %}
+{% endblock %}

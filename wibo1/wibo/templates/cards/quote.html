@@ -1,0 +1,64 @@
+{% load cards_extras %}
+
+{# job = JobCard #}
+{# p = Quantity with job_card=job #}
+
+
+<div class="row-fluid">
+    <div class="span6">
+    <b>Job:</b> {{ job }}<br />
+    <b>Date:</b> {% now "SHORT_DATETIME_FORMAT" %}<br \>
+    <b>Client:</b> {{ job.contact }}<br \> 
+    <b>Company/Department:</b> {{ job.contact.company }}<br \>
+    <b>Email:</b> {{ job.contact.email }}<br \>
+    {% for phone in job.contact.telephone_set.all %}
+    <b>Phone:</b> {{ phone.phone_number }}<br \>
+    {% endfor %}
+</div>{# span6 #}
+<div class="span6">
+    <b>Bill to:</b> {{ job.billing_contact }}<br \>
+    <b>Email:</b> {{ job.billing_contact.email }}<br \>
+    {% for address in job.billing_contact.address_set.all %}
+    <b>Address:</b> <br />{{ address.street_address }}<br />
+    {{address.city}}, {{address.state}} {{address.postal_code }}<br \>
+    {% endfor %}
+    {% for phone in job.billing_contact.telephone_set.all %}
+    <b>Phone:</b> {{ phone.phone_number }}<br \>
+    {% endfor %}
+    <br />
+</div>{# span6 #}
+</div>{# row-fluid #}
+        <br/>
+<div class="row-fluid">
+    <div class="span12">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Product or Service</th>
+                    <th>Qty</th>
+                    <th>Unit Price</th>
+                    <th>Extended Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in items %}
+                {% include "cards/items_quoteview.html" with item=i price_level=job.price_level%}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row-fluid">
+    <div class="span6">
+        <h3>Notes:</h3>
+        <p>{{ job.client_notes|linebreaks }}</p>
+        <p>Quote valid for 30 days.</p>
+    </div>
+    <div class="span6">
+        <table class="table table-striped table-bordered">
+            <tr><td><b>Subtotal:</b></td><td>{{job.price|currency}}</td></tr>
+            <tr><td><b>Tax:</b></td><td>{{tax|currency}}</td></tr>
+            <tr><td><b>Total:</b></td><td>{{total|currency}}</td></tr>
+        </table>
+    </div>
+</div>

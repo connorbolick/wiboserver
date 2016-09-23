@@ -1,0 +1,28 @@
+{% extends 'site_base.html' %}
+
+{% block head_title %}Products{%endblock head_title%}
+
+{% block body %}
+<h2>Products In Scope</h2>
+<a class="btn" href="{% url cards.views.new_product %}">Add New +</a>
+<div class="row">
+<div class="span4">
+    <h3>In Production</h3>
+        {% for p in production_list %}
+        {% include "cards/product_card.html" with p=p %}
+        {% endfor %}
+</div>
+<div class="span4">
+    <h3>Designing</h3>
+        {% for p in design_list %}
+        {% include "cards/product_card.html" with p=p %}
+        {% endfor %}
+</div>
+<div class="span4">
+    <h3>Quoted</h3>
+        {% for p in quote_list %}
+        {% include "cards/product_card.html" with p=p %}
+        {% endfor %}
+</div>
+</div>{#row#}
+{% endblock body %}

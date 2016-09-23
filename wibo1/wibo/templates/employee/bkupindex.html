@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="1138.51">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times}
+  </style>
+</head>
+<body>
+<p class="p1">{% extends "site_base.html" %} {% load bootstrap_tags %} {% block head_title %}Employees{% endblock head_title %} {% block body%}</p>
+
+<h2 style="margin: 0.0px 0.0px 14.0px 0.0px; font: 18.0px Times"><b>Employees</b></h2>
+
+<p class="p1">{% if designer_list %}</p>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; font: 14.0px Times"><b>Designers</b></h3>
+<p class="p1">{% for e in designer_list %} {% include "employee/card.html" with e=e %} {% endfor %}</p>
+
+<p class="p1">{% endif %} {% if writers_list %}</p>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; font: 14.0px Times"><b>Writers</b></h3>
+<p class="p1">{% for e in writers_list %} {% include "employee/card.html" with e=e %} {% endfor %}</p>
+
+<p class="p1">{% endif %} {% if managers_list %}</p>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; font: 14.0px Times"><b>Managers</b></h3>
+<p class="p1">{% for e in managers_list %} {% include "employee/card.html" with e=e %} {% endfor %}</p>
+
+<p class="p1">{% endif %} {% if sales_list %}</p>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; font: 14.0px Times"><b>Sales</b></h3>
+<p class="p1">{% for e in sales_list %} {% include "employee/card.html" with e=e %} {% endfor %}</p>
+
+<p class="p1">{% endif %} {% if hr_list %}</p>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; font: 14.0px Times"><b>Human Resources</b></h3>
+<p class="p1">{% for e in hr_list %} {% include "employee/card.html" with e=e %} {% endfor %}</p>
+
+<p class="p1">{% endif %} {% if marketing_list %}</p>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; font: 14.0px Times"><b>Marketing</b></h3>
+<p class="p1">{% for e in marketing_list %} {% include "employee/card.html" with e=e %} {% endfor %}</p>
+
+<p class="p1">{% endif %} {% if supply_list %}</p>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; font: 14.0px Times"><b>Supply Chain Management</b></h3>
+<p class="p1">{% for e in supply_list %} {% include "employee/card.html" with e=e %} {% endfor %}</p>
+
+<p class="p1">{% endif %} {% if photographers_list %}</p>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; font: 14.0px Times"><b>Photographers</b></h3>
+<p class="p1">{% for e in photographers_list %} {% include "employee/card.html" with e=e %} {% endfor %}</p>
+
+<p class="p1">{% endif %} {% if studentadmins_list %}</p>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; font: 14.0px Times"><b>Student Administrative Assistants</b></h3>
+<p class="p1">{% for e in studentadmins_list %} {% include "employee/card.html" with e=e %} {% endfor %}</p>
+
+<p class="p1">{% endif %} {% if web_list %}</p>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; font: 14.0px Times"><b>Web</b></h3>
+<p class="p1">{% for e in web_list %} {% include "employee/card.html" with e=e %} {% endfor %}</p>
+
+<p class="p1">{% endif %} {% if sapubs_list %}</p>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; font: 14.0px Times"><b>Student Affiars Publications Staff</b></h3>
+<p class="p1">{% for e in sapubs_list %} {% include "employee/card.html" with e=e %} {% endfor %}</p>
+
+<p class="p1">{% endif %} {% endblock body %}</p>
+
+</body>
+</html>

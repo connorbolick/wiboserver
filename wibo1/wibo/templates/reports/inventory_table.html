@@ -1,0 +1,24 @@
+{% load cards_extras %}
+<table class="table table-bordered">
+    <thead>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Category</th>
+        <th>Billing Units</th>
+        <th>Price Int.</th>
+        <th>Price Ext.</th>
+        <th>Cost</th>
+    <tbody>
+    {% for mat in inventory %}
+        <tr>
+            <td>{{mat.product_name}}</td>
+            <td>{{mat.description}}</td>
+            <td>{{mat.category}}</td>
+            <td>{{mat.unit}}</td>
+            <td>{{mat.unit_price_int}}</td>
+            <td>{{mat.unit_price_ext}}</td>
+            <td>{{mat.unit_cost}}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

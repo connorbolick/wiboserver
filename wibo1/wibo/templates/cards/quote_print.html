@@ -1,0 +1,25 @@
+{% extends "site_base.html" %}
+{% load cards_extras %}
+{% load staticfiles %}
+
+{# job = JobCard #}
+{# p = Quantity with job_card=job #}
+
+{% block topbar_base %}{% endblock topbar_base %}
+
+{% block extra_style %}
+<link href={% static "css/print.css" %} rel="stylesheet" />
+{% endblock extra_style %}
+
+{% block body %}
+
+    <div class="row-fluid">
+       <img src={% static "img/invoiceheader2.png" %} />
+    <br/><br/>
+
+<h2>Quote</h2>
+{% include "cards/quote.html" with job=job p=p %}
+
+{% endblock body %}
+
+{% block footer %}{% endblock footer %}

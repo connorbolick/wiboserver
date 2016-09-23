@@ -1,0 +1,33 @@
+{% extends 'invoice/index.html' %}
+{% load staticfiles %}
+
+{% block extra_style %}
+<link href="{% static "css/datepicker.css" %}" rel="stylesheet" />
+{% endblock extra_style %}
+
+{% block extra_script %}
+<script src="{% static "js/bootstrap-datepicker.js" %}"></script>
+<script>
+    $(document).ready(function(){ 
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd'        
+        })});
+</script>
+{% endblock extra_script %}
+
+{% block body %}
+
+<form action="" method="post">{% csrf_token %}
+    {{ payment_type }}
+    {% include "formset_table.html" with formset=pay_formset %}
+    {% include "formset_table.html" with formset=cash_formset %}
+    {% include "formset_table.html" with formset=check_formset %}
+    {% include "formset_table.html" with formset=ido_formset %}
+    {% include "formset_table.html" with formset=web_formset %}
+
+    <div class="form-actions">
+        <input class="btn btn-primary" type="submit" value="Save" />
+        <input class="btn" type="button" value="Cancel" onClick="history.go(-1);return true;" />    
+    </div>
+</form>
+{% endblock body %}

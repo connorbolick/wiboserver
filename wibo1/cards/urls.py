@@ -1,0 +1,20 @@
+from django.conf.urls import patterns, include, url
+
+urlpatterns = patterns('cards.views',
+        #url(r'^$', 'index', name='cardsindexurl'),
+        #url(r'^products/$', 'product_index', name='productindexurl'),
+        url(r'^products/(?P<product_id>\d+)/$', 'product_detail', name='productdetailurl'),
+        url(r'^products/(?P<product_id>\d+)/edit/$', 'edit_product', name='editproducturl'),
+        url(r'^products/new/$', 'new_product', name='newproducturl'),
+        url(r'^products/(?P<product_id>\d+)/copy/$', 'copy_product', name = 'copyproducturl'),
+        url(r'^products/pickup/$','pickup_index', name='pickupindexurl'),
+        url(r'^products/templates/$','template_index', name='templateindexurl'),
+        url(r'^jobs/$', 'job_index', name='jobsindexurl'),
+        url(r'^jobs/(?P<job_number>\d+)/$','job_detail', name='jobdetailurl'),
+        url(r'^jobs/(?P<job_number>\d+)/edit/$','edit_job', name='editjoburl'),
+        url(r'^jobs/new/$', 'new_job', name='newjoburl'),
+        url(r'^jobs/(?P<job_number>\d+)/quote/print/$','quote_print', name='quoteprinturl'),
+        url(r'^jobs/(?P<job_number>\d+)/quote/$','quote', name='quoteurl'),
+        url(r'^jobs/(?P<job_number>\d+)/approve/$','admin_approve_quote', name='approvequoteurl'),
+        url(r'^products/(?P<product_id>\d+)/rush/$', 'product_rush', name = 'productrushurl'),
+)

@@ -1,0 +1,59 @@
+{% extends "banner_base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Welcome" %}{% endblock %}
+
+{% block body_class %}home{% endblock %}
+
+{% block banner %}
+    <h1>{% trans "Welcome to WIBO" %}</h1>
+    <p>
+        {% blocktrans %}
+        <b>wibo</b> stands for Web Invoicing and Billing Organizer. <b>wibo</b> lets you track client projects, jobs, invoices and payments. <br />Before you get started, there's some stuff you need to know:
+        {% endblocktrans %}
+    </p>
+    <h2>Terminology</h2>
+    <ol>
+        <li><b>Contacts:</b> Every one of our clients is a contact. Anyone who wants us to work for them
+        or who wants to pay us needs to be entered as a contact.</li>
+        <li><b>Jobs:</b> Every project we do gets its own job. Jobs can be big projects with a lot of 
+        parts (like "Wale Concert Graphics") or small jobs (like "Upstate Technology Servies Business 
+        Cards"). Try to use super-awesome and descriptive job names, that's all that will show up on 
+        the invoice.</li>
+        <li><b>Products:</b> Products are parts of jobs. This is stuff like "Retractable Banner with 
+        Stand" or "2x3 Mounted Sign." Products are made up of the materials you'll use for the job. 
+        Every product has to be attached to a Job (so make the Job first, before you try and create 
+        Products).</li>
+        <li><b>Invoices:</b> We bill our clients with invoices. These get created from Jobs that you 
+        aren't going to add any more Products to. When you take payment from a client, you can add 
+        Payments to the Invoice to track incoming revenue.</li>
+    </ol>
+    
+    {% if user.is_authenticated %}
+        {% url what_next as what_next_url %}
+        {#<p class="what_next">{% blocktrans %}Wondering <a href="{{ what_next_url }}" class="btn primary large">What Next</a>?{% endblocktrans %}</p>#}
+    {% else %}
+        {% url account_login as login_url %}
+        {% url account_signup as signup_url %}
+        <p>{% blocktrans %}To get started, <a href="{{login_url}}" class="btn">Log In</a>. Use your student user name and the password "design" (you can change this later).{%endblocktrans%}</p>
+    {% endif %}
+{% endblock %}
+
+{% block column-1 %}
+    <h2>Employees</h2>
+    <p>Communication is key to any team environment. Get to know our staff and find out how to contact us.</p>
+    <p><a class="btn" href="{% url employeeindexurl %}">View employees &raquo;</a></p>
+{% endblock %}
+
+{% block column-2 %}
+    <h2>Frequent Products</h2>
+    <p>We do a lot of the same types of products. To make it easy to make quotes for out clients, here's a link to all of our frequent products. You can copy these into the job for your client's project.</p>
+    <p><a class="btn" href="{% url templateindexurl %}">View frequent products &raquo;</a></p>
+{% endblock %}
+
+{% block column-3 %}
+    <h2>Problems?</h2>
+    <p><b>wibo</b> is constantly being updated, and sometimes things don't work. If you see something that is broken or doesn't work the way you think it should, please report it below.</p>
+    <p><a class="btn" href="https://bitbucket.org/cbplusd/wibo/issues/new">Report a Problem &raquo;</a></p>
+{% endblock %}

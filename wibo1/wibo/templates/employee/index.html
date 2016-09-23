@@ -1,0 +1,98 @@
+{% extends "site_base.html" %}
+{% load bootstrap_tags %}
+
+{% block head_title %}Employees{% endblock head_title %}
+
+{% block body%}
+<h2>Employees <a href="mailto:{{all_emails}}"><i class="icon-envelope"></i></a></h2>
+
+{% if designer_list %}
+<h3>Designers  <a href="mailto:{{designer_emails}}"><i class="icon-envelope"></i></a></h3>
+<div class="row">
+    {% for e in designer_list %}
+    {% include "employee/card.html" with e=e %}
+    {% endfor %}
+</div>
+{% endif %}
+{% if writers_list %}
+<h3>Writers  <a href="mailto:{{writers_emails}}"><i class="icon-envelope"></i></a></h3>
+<div class="row">
+    {% for e in writers_list %}
+    {% include "employee/card.html" with e=e %}
+    {% endfor %}
+</div>
+{% endif %}
+{% if managers_list %}
+<h3>Managers  <a href="mailto:{{managers_emails}}"><i class="icon-envelope"></i></a></h3>
+<div class="row">
+    {% for e in managers_list %}
+    {% include "employee/card.html" with e=e %}
+    {% endfor %}
+</div>
+{% endif %}
+{% if sales_list %}
+<h3>Sales  <a href="mailto:{{sales_emails}}"><i class="icon-envelope"></i></a></h3>
+<div class="row">
+    {% for e in sales_list %}
+    {% include "employee/card.html" with e=e %}
+    {% endfor %}
+</div>
+{% endif %}
+{% if hr_list %}
+<h3>Human Resources  <a href="mailto:{{hr_emails}}"><i class="icon-envelope"></i></a></h3>
+<div class="row">
+    {% for e in hr_list %}
+    {% include "employee/card.html" with e=e %}
+    {% endfor %}
+</div>
+{% endif %}
+{% if marketing_list %}
+<h3>Marketing  <a href="mailto:{{marketing_emails}}"><i class="icon-envelope"></i></a></h3>
+<div class="row">
+    {% for e in marketing_list %}
+    {% include "employee/card.html" with e=e %}
+    {% endfor %}
+</div>
+{% endif %}
+{% if supply_list %}
+<h3>Supply Chain Management  <a href="mailto:{{supply_emails}}"><i class="icon-envelope"></i></a></h3>
+<div class="row">
+    {% for e in supply_list %}
+    {% include "employee/card.html" with e=e %}
+    {% endfor %}
+</div>
+{% endif %}
+{% if photographers_list %}
+<h3>Photographers  <a href="mailto:{{photographers_emails}}"><i class="icon-envelope"></i></a></h3>
+<div class="row">
+    {% for e in photographers_list %}
+    {% include "employee/card.html" with e=e %}
+    {% endfor %}
+</div>
+{% endif %}
+{% if studentadmins_list %}
+<h3>Student Administrative Assistants  <a href="mailto:{{studentadmins_emails}}"><i class="icon-envelope"></i></a></h3>
+<div class="row">
+    {% for e in studentadmins_list %}
+    {% include "employee/card.html" with e=e %}
+    {% endfor %}
+</div>
+{% endif %}
+{% if web_list %}
+<h3>Web  <a href="mailto:{{web_emails}}"><i class="icon-envelope"></i></a></h3>
+<div class="row">
+    {% for e in web_list %}
+    {% include "employee/card.html" with e=e %}
+    {% endfor %}
+</div>
+{% endif %}
+{% if sapubs_list %}
+<h3>Student Affiars Publications Staff  <a href="mailto:{{sapubs_emails}}"><i class="icon-envelope"></i></a></h3>
+<div class="row">
+    {% for e in sapubs_list %}
+    {% include "employee/card.html" with e=e %}
+    {% endfor %}
+</div>
+{% endif %}
+
+{% endblock body %}

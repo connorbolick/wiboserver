@@ -1,0 +1,54 @@
+{% extends "contacts/index.html" %}
+
+{% block head_title %}{{ contact.first_name}} {{contact.last_name}}{% endblock head_title %}
+
+{% block body %}
+{% if error_message %}<p><strong>{{error_message}}</strong></p>{% endif %}
+<h3>[{{contact.id}}] {{ contact.first_name }} {{ contact.last_name }}</h3>
+<h4>{{contact.department}}, {{ contact.company }}</h4>
+<a class="btn" href="{% url contacts.views.edit_contact contact.id %}">Edit</a><br />
+<div class="row">
+<div class="span4">
+    <a href="mailto:{{ contact.email }}">{{contact.email}}</a><br \>
+    <b>Price Level:</b> {{contact.default_price_level}}<br \>
+    {% if contact.student_id %}
+    <b>Student ID:</b> {{contact.student_id}}<br \>
+    {% endif %}
+    {% for phone in contact.telephone_set.all %}
+    <b>Phone #:</b> {{ phone.phone_number }} ({{ phone.phone_type }})<br \>
+    {% endfor %}
+</div>
+<div class="span4">
+{% if contact.address_set.count > 0 %}
+    {% if contact.address_set.count == 1 %}
+    <h4>Address</h4>
+    {% else %}
+    <h4>Addresses</h4>
+    {% endif %}
+    <ul class="unstyled">
+        {% for address in contact.address_set.all %}
+        <li><address>{{ address.street_address}}<br />
+        {{address.city}}, {{address.state}} {{address.postal_code}}</address></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</div>
+<div class="span4">
+    <h4>Notes:</h4>
+    <p>{{contact.notes}}</p>
+    <b>Return on Investment:</b> {{contact.roi}}
+</div>
+</div>
+<h4>Open Orders</h4>
+<div class="row">
+    {% for job in opened_list %}
+    <div class="span4">{% include "cards/job_card.html" with c=job %}</div>
+    {% endfor %}
+</div>{# row #}
+<h4>Closed Orders</h4>
+<div class="row">
+    {% for job in completed_list %}
+    <div class="span4">{% include "cards/job_card.html" with c=job %}</div>
+    {% endfor %}
+</div>{# row #}
+{% endblock body %}

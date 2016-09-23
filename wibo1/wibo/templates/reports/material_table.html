@@ -1,0 +1,31 @@
+{% load cards_extras %}
+<table class="table table-bordered">
+    {% for category, materials in by_category.items %}
+    <thead>
+        <th>{{category}}</th>
+        <th>Count</th>
+        <th>%</th>
+        <th>Unitage</th>
+        <th>Unit</th>
+        <th>Cost</th>
+        <th>Waste</th>
+        <th>Gross</th>
+        <th>Net</th>
+    </thead>
+    <tbody>
+        {% for material, values in materials.items %}
+        <tr>
+            <td>{{material}}</td>
+            <td>{{values.count}}</td>
+            <td>{{values.percent}}</td>
+            <td>{{values.unitage|floatformat:"-3"}}</td>
+            <td>{{values.unit}}</td>
+            <td>{{values.cost|currency}}</td>
+            <td>{{values.waste|currency}}</td>
+            <td>{{values.gross|currency}}</td>
+            <td>{{values.net|currency}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+    {% endfor %}
+</table>

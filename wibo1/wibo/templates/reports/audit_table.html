@@ -1,0 +1,45 @@
+{% load cards_extras %}
+<table class="table table-bordered">
+    <caption>Thumbnail Audit</caption>
+    {% for user,values in thumb_by_user.items %}
+    <thead>
+        <tr>
+            <th>{{ user.get_full_name }}</th>
+            <th># of Jobs: {{values.count}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for job in values.jobs %}
+        <tr>
+            <td colspan="2">{{ job }}</td>
+        </tr>
+        {%endfor%}
+    </tbody>
+    {% endfor %}
+    <tr>
+        <td><b>Total</b></td>
+        <td>{{total_jobs}}</td>
+    </tr>
+</table>
+<table class="table table-bordered">
+    <caption>Waste Audit</caption>
+    {% for user,values in waste_by_user.items %}
+    <thead>
+        <tr>
+            <th>{{ user.get_full_name }}</th>
+            <th># of Jobs: {{values.count}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for job in values.jobs %}
+        <tr>
+            <td colspan="2">{{ job }}</td>
+        </tr>
+        {%endfor%}
+    </tbody>
+    {% endfor %}
+    <tr>
+        <td><b>Total</b></td>
+        <td>{{total_jobs}}</td>
+    </tr>
+</table>

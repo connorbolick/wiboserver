@@ -1,0 +1,51 @@
+{% extends "contacts/index.html" %}
+
+{% block title %}{{block.super}} | Add New{% endblock title %}
+
+{% block content %}
+<h3>Add New Contact</h3>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <fieldset>
+        <legend>Name:</legend>
+        <label for="id_first_name" class="required">First name:</label>
+        <input name="first_name" maxlength="30" type="text" id="id_first_name" />
+        <label for="id_last_name" class="required">Last name:</label>
+        <input name="last_name" maxlength="30" type="text" id="id_last_name" />
+    </fieldset>
+    <fieldset>
+        <legend>Details:</legend>
+        <label for="id_company" class="required">Company or department:</label>
+        <input name="compnay" maxlength="255" type="text" id="id_company" />
+        <label for="id_email" class="required">Email:</label>
+        <input name="email" maxlength="254" type="text" id="id_email" />
+        <label for="id_default_price_level" class="required">Price level:</label>
+        <select name="default_price_level" id="id_default_price_level">
+            <option value selected="selected">- - - - - - - - </option>
+            <option value="INT">internal</option>
+            <option value="EXT">external</option>
+        </select>
+        <label for="id_student_id">Student id:</label>
+        <input name="student_id" maxlength="10" type="text" id="id_student_id" />
+        <p>Leave blank if not a student</p>
+    </fieldset>
+    <fieldset>
+        <legend>Contact Information:</legend>
+        <label for="id_telephone_set-0-phone_number">Phone number:</label>
+        <input name="telephone_set-0-phone_number" maxlength="24" type="text" id="id_telephone_set-0-phone_number" />
+        <fieldset name="address_set-0">
+            <legend>Address</legend>
+            <label for="id_address_set-0-street_address">Street address:</label>
+            <input name="address_set-0-street_address" maxlength="255" type="text" id="id_address_set-0-street_address"  /><br />
+            <label for="id_address_set-0-city">City:</label>
+            <input name="address_set-0-city" maxlength="20" type="text" id="id_address_set-0-city" />
+            <label for="id_address_set-0-state">State:</label>
+            <input name="address_set-0-state" maxlength="20" type="text" id="id_address_set-0-state" />
+            <label for="id_address_set-0-postal_code">Postal code:</label>
+            <input name="address_set-0-postal_code" maxlength="20" type="text" id="id_address_set-0-postal_code" />
+        </fieldset>
+        <input type="submit" value="Save" />
+    </fieldset>
+{% endblock content %}

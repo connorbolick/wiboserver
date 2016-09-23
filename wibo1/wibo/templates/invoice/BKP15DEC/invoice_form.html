@@ -1,0 +1,24 @@
+{% extends 'invoice/detail.html' %}
+{% load bootstrap_tags %}
+{% block body %}
+<h3>Edit Invoice</h3>
+<form action="" method="post">{% csrf_token %}
+<div class="row">
+ <div class="span4">
+     {{ form|as_bootstrap }}
+ </div>{#span4#}
+ <div class="span8">
+     <h4>Instructions:</h4>
+     <strong><em>Payment Type:</em></strong> How the client has paid/will pay.<br/>
+     <strong><em>Billing Client:</em></strong> Who's paying for the invoice.<br/>
+     <b>Invoice notes:</b> Notes for the client (this will show up on the invoice).<br/>
+     <b>Notes:</b> Notes for internal use only (this does not show up on the invoice).<br/>
+ </div>{#span8#}
+</div>{#row#}
+     {% include "formset_table.html" with formset=job_formset %}
+     <div class="form-actions">
+         <input class="btn btn-primary" type="submit" value="Save" />
+         <input class="btn" type="button" value="Cancel" onClick="history.go(-1);return true;" />
+     </div>
+ </form>
+ {% endblock body %}

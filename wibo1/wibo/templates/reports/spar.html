@@ -1,0 +1,38 @@
+{% extends "site_base.html" %}
+{% load bootstrap_tags %}
+{% load staticfiles %}
+
+{% block head_title %}SPAR{% endblock head_title %}
+
+{% block extra_style %}
+<link href="{% static "css/datepicker.css" %}" rel="stylesheet" />
+{% endblock extra_style %}
+
+{% block extra_script %}
+<script src="{% static "js/bootstrap-datepicker.js" %}"></script>
+<script>
+    $(document).ready(function(){ 
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd'        
+        })});
+</script>
+{% endblock extra_script %}
+
+{% block body %}
+<h2>SPAR Report</h2>
+<p>The SPAR report pulls all jobs in the date range that have been billed (where JobCard.billed = True) and counts the number of jobs we've done for each company and department (pulling from the "Contact" associated with the job). It also counts the number of each item we've produced.</p>
+<p>Enter a date range below, or hit one of the buttons to generate the report for all jobs in the database. "List" displays the list below, "Excel" creates a spreadsheet that can be opened with Microsoft Excel.</p>
+<form method="get" action="">{#{% csrf_token %}#}
+    <div class="form-actions">
+        {{date_form|as_bootstrap}}
+        <input class="btn btn-primary" type="submit" name="list" value="List" />
+        <input class="btn" type="submit" name="excel" value="Excel" />
+    </div>
+
+{% include "reports/spar_table.html" with by_department=by_department by_category=by_category %}
+
+{% for job in query %}
+{{job.name}} {{job.invoice_date}}<br />
+{% endfor %}
+</form>
+{% endblock body%}

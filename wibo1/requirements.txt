@@ -1,0 +1,6 @@
+--extra-index-url=http://dist.pinaxproject.com/dev/
+--extra-index-url=http://dist.pinaxproject.com/alpha/
+
+-r requirements/deploy.txt
+-r requirements/common.txt
+-r requirements/dev.txt

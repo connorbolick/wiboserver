@@ -1,0 +1,18 @@
+<div class="well">
+    {% block assigned_designers %}{% endblock assigned_designers %}
+    <h4>
+        {#<label class="checkbox">#}
+            <input name="{%block input_name%}{%endblock%}" value="{%block pk%}{%endblock%}" type="checkbox" /> {% block name %}{% endblock name %}
+        {#</label>#}
+    </h4>
+    <div class="card_options">{% block card_options %}{% endblock card_options %}</div>
+    <div class="row-fluid">
+        {#<div class="span1">{% block thumbnail %}Thumbnail{% endblock thumbnail %}</div>#}
+        <div class="span12">
+            {% block description_list %}{% endblock description_list %}
+        </div>
+    </div>
+    <div class="row-fluid">
+        {% block sub_cards %}{% endblock sub_cards %}
+    </div>
+</div>

@@ -1,0 +1,52 @@
+{% extends 'site_base.html' %}
+{% load bootstrap_tags %}
+
+{% block head_title %}{{view}} Jobs{%endblock head_title%}
+
+{% block body %}
+<h2>{{view}} Jobs</h2>
+<form action="" method="post">{% csrf_token %}
+    <a class="btn btn-primary" href="{% url cards.views.new_job %}">Add New +</a>
+    <input class="btn btn-info" type="submit" value="Invoice Selected" />
+    <br /><br />
+    <table class="table table-condensed table-bordered">
+        <tr>
+            <td span class="span2"><a href="?status=quote" class="label label-default">quote</span></td>
+            <td span class="span2"><a href="?status=needs%20approval" class="label label-warning">needs approval</span></td>
+            <td span class="span2"><a href="?status=approved" class="label label-success">approved</span></td>
+            <td span class="span2"><a href="?status=in%20production" class="label label-success">in production</span></td>
+            <td span class="span2"><a href="?status=ready%for%pickup" class="label label-info">ready for pickup</a></td>
+            <td span class="span2"><a href="?status=finished" class="label label-info">finished</span></td>
+            <td span class="span2"><a href="?status=on%20hold" class="label label-inverse">on hold</span></td>
+            <td span class="span2"><a href="?status=cancelled" class="label label-inverse">cancelled</span></td>
+        </tr>
+        <tr>
+            <td span class="span2">Quote needs to be created.</td>
+            <td span class="span2">Quote has been sent to client.</td>
+            <td span class="span2">The client approved the quote, but work has not started on this job.</td>
+            <td span class="span2">This job is currently being worked on.</td>
+            <td span class="span2">Client needs to pickup items (or needs to be notified to do so).</td>
+            <td span class="span2">The job is finished and no further action is needed.</td>
+            <td span class="span2">The client has indicated they want to continue the job at a later date.</td>
+            <td span class="span2">The client has indicated they no longer want to continue with this job.</td>
+        </tr>
+    </table>
+    <h3 class="container">Jobs</h3>
+    {% if jobslist %}
+    {% include "cards/job_listview.html" with cardlist=jobslist %}
+    {% elif jobsbyuser %}
+        <ul class="nav nav-pills">
+            {% for user in jobsbyuser.keys %}
+            <li><a href="#{{user.first_name|lower}}{{user.last_name|lower}}">{{user.full_name}}</a></li>
+            {%endfor%}
+        </ul>
+        {% for user,joblist in jobsbyuser.items %}
+        <h4 id="{{user.first_name|lower}}{{user.last_name|lower}}">{{user.full_name}} <a href="#"><i class="icon-arrow-up"></i></a></h4>
+            {% include "cards/job_listview.html" with cardlist=joblist %}
+        {%endfor%}
+    {%else%}
+    <h4>Nothing Found</h4>
+    {{users}}
+    {%endif%}
+</form>
+{% endblock body %}

@@ -1,0 +1,53 @@
+{% extends 'site_base.html' %}
+{% load bootstrap_tags %}
+
+{% block head_title %}Search{% endblock head_title %}
+
+{% block body %}
+<h2>Search</h2>
+
+<form method="get" action="">
+    <table>
+        {{ form|as_bootstrap }}
+        <tr>
+            <td>&nbsp;</td>
+            <td><input class="btn" type="submit" value="Search" /></td>
+        </tr>
+    </table>
+
+    {% if query %}
+    <h3>Results</h3>
+    <table class="table table-condensed table-striped table-hover">
+    {% for results in page.object_list %}
+    {% if results.content_type == "contacts.contact" %}
+    {% include "search/includes/contacts/contact.html" %}
+    {% elif results.content_type == "cards.productcard" %}
+    {% include "search/includes/cards/product.html"%}
+    {% elif results.content_type == "cards.jobcard" %}
+    {% include "search/includes/cards/job.html"%}
+    {% elif results.content_type == "cards.designcard" %}
+    {% include "search/includes/cards/design.html"%}
+    {% elif results.content_type == "invoice.invoice" %}
+    {% include "search/includes/invoice/invoice.html"%}
+    {% else %}
+     <p>
+        <a href="{{ results.object.get_absolute_url }}">{{results.object}}</a>
+    </p>
+    {%endif%}
+    {% empty %}
+    <p>No results found.</p>
+    {% endfor %}
+    </table>
+
+    {% if page.has_previous or page.has_next %}
+    <div>
+        {% if page.had_previous %}<a href="?q={{query}}&amp;page={{page.previous_page_number}}">{%endif%}&laquo; Previous{%if page.has_previous%}</a>{%endif%}
+        |
+        {% if page.has_next %}<a href="?q={{ query }}&amp;page={{ page.next_page_number }}">{% endif %}Next &raquo;{% if page.has_next %}</a>{% endif %}
+    </div>
+    {% endif %}
+    {% else %}
+        {# Show some example queries to run, maybe query syntax, something else? #}
+    {% endif %}
+</form>
+{% endblock body %}

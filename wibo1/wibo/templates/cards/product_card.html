@@ -1,0 +1,29 @@
+{% if p.past_due == "past" %}
+<div class="well" style="height:170px;overflow:hidden;background-color:#f2dede;">
+{% elif p.past_due == "close" %}
+<div class="well" style="height:170px;overflow:hidden;background-color:#fcf8e3;">
+{% else %}
+<div class="well" style="height:170px;overflow:hidden;">
+{% endif %}
+    {{p.assigneduser}}
+    <h4>
+        {#<label class="checkbox">#}
+            <input name="product_checkbox" value="{{p.pk}}" type="checkbox" /> <a href="{% url cards.views.product_detail p.id %}">{%for q in p.cardquantity_set.all%}{%if q.qtype == 'product'%}[{{q.units}}]{%endif%}{%endfor%} {{ p.name }}</a>
+        {#</label>#}
+    </h4>
+    <div class="row-fluid">
+        {#<div class="span1">{% block thumbnail %}Thumbnail{% endblock thumbnail %}</div>#}
+        <div class="span12">
+            <b>Job:</b>
+            {% for q in p.cardquantity_set.all %}
+            {% if q.qtype == 'product' %}
+                {% if q.job_card %}
+                <a href={% url jobdetailurl q.job_card.pk %}>{{ q.job_card }}</a><br />
+                {%endif%}
+                {% endif %}
+            {% endfor %}
+            <b>Due Date:</b> {{ p.due_date }}<br />
+            <b>Production Status:</b> {{ p.status }}<br />
+        </div>
+    </div>
+</div>

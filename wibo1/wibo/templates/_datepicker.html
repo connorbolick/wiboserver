@@ -1,0 +1,9 @@
+{% load staticfiles %}
+<script src="{% static "js/bootstrap-datepicker.js" %}"></script>
+<script>
+    $(document).ready(function(){ 
+        $('.datepicker').datepicker({
+            format: 'yyyy-mm-dd',
+            //beforeShowDay: $.datepicker.noWeekends
+        })});
+</script>

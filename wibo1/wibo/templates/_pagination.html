@@ -1,0 +1,26 @@
+{#page = page object#}
+
+<div class="pagination">
+    <ul>
+        {%if page.has_previous%}
+        <li><a href="?page={{page.previous_page_number}}{{ap}}">&laquo</a></li>
+        {%else%}
+        <li class="disabled"><a href="?page={{page.previous_page_number}}{{ap}}">&laquo</a></li>
+        {%endif%}
+
+        {%for p in page.paginator.page_range%}
+        {% if p == page.number %}
+        <li class="active"><a href="?page={{p}}{{ap}}">{{p}}</a></li>
+        {%else%}
+        <li><a href="?page={{p}}{{ap}}">{{p}}</a></li>
+        {%endif%}
+        {%endfor%}
+
+        {%if page.has_next%}
+        <li><a href="?page={{page.next_page_number}}{{ap}}">&raquo</a></li>
+        {%else%}
+        <li class="disabled"><a href="?page={{page.next_page_number}}{{ap}}">&raquo</a></li>
+        {%endif%}
+    </ul>
+</div>
+        

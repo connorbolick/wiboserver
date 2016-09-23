@@ -1,0 +1,12 @@
+{% extends "site_base.html" %}
+{% load cards_extras %}
+
+{# job = JobCard #}
+{# p = Quantity with job_card=job #}
+
+{% block head_title %}Quote {{job.job_number}}{% endblock head_title %}
+{% block body %}
+<h2>Quote</h2>
+<div class="row-fluid"><a class="btn" href="{% url cards.views.edit_job job.pk %}">Edit</a> <a class="btn" href="{% url cards.views.quote_print job.pk %}">Print</a>
+{% include "cards/quote.html" with job=job p=p %}
+{% endblock body %}

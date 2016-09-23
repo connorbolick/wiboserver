@@ -1,0 +1,7 @@
+{# search/includes/cards/product.html#}
+<tr>
+    <td><a href="{% url cards.views.product_detail results.object.id %}">Product {{ results.object.id }}</a></td>
+    <td><a href="{% url cards.views.product_detail results.object.id %}">{{ results.object.name }}</a></td>
+    <td><a href="{% url cards.views.product_detail results.object.id %}">{{ results.object.due_date }}</a></td>
+    <td><a href="{% url cards.views.product_detail results.object.id %}">{{ results.object.status }}</a></td>
+</tr>

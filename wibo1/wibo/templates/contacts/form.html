@@ -1,0 +1,35 @@
+{% extends 'contacts/detail.html' %}
+{% load bootstrap_tags %}
+
+{% block head_title %}New Contact{% endblock head_title %}
+
+{% block body %}
+
+<form action="" method="post">{% csrf_token %}
+    <div class="row">
+    <div class="span4">
+        {{ form|as_bootstrap }}
+    </div>
+    <div class="span4">
+        <h4>Instructions</h4>
+        <p>Create new clients or edit current ones with this form. You'll need to make a new contact for each company/organiztion a client is ordering for.</p>
+        <h5>Clemson Employees</h5>
+        <p>If the client is ordering for their department, list "Clemson University" as the company with the official department name for "Department or major." Please include an office phone number and office address. For consistancy, you can lookup this information at <a href="https://phonebook.app.clemson.edu">phonebook.app.clemson.edu</a>. </p>
+        <p>If the client is making a person order, add a new contact and list "Personal" as the company.</p>
+        <h5>Clemson Students</h5>
+        <p>List "Clemson University" as the company with "Student (major)" for the Department. We need XID numbers for billing, so try and get one if you can.</p>
+        <p>If a student is placing an order for a student organization or for a another group on campus, create a new contact with "Clemson University" as the company with the organization or group as the Department.</p>
+        <h5>Everyone Else</h5>
+        <p>Fill out as much information as you can. Phone numbers are particularly helpful when we have a problem producing a piece and need to get in touch with our client quickly.</p>
+    </div>
+    </div>
+
+    {% include "formset_table.html" with formset=telephone_formset  %}
+    {% include "formset_table.html" with formset=address_formset  %}
+    <div class="form-actions">
+        <input class="btn btn-primary" type="submit" value="Save" />
+        <input class="btn" type="button" value="Cancel" onClick="history.go(-1);return true;" />    
+    </div>
+</form>
+
+{% endblock body %}

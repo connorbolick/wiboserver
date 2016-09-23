@@ -1,0 +1,30 @@
+<div class="well" style="height:260px;overflow:auto;">
+    <h4>
+        {#<label class="checkbox">#}
+            <input name="" value="" type="checkbox" /> <a href="{% url cards.views.product_detail d.product.id %}">Design</a>
+        {#</label>#}
+    </h4>
+    <div class="row-fluid">
+        <div class="span12">
+            <figure>
+            {% if d.thumbnail %}
+            <img src="{{ d.thumbnail.url }}" alt="Alt" style="height:200px;"> 
+            {% endif %}</figure>
+            <b>Design Status:</b> {{d.design_status}}<br />
+            <b>Approval:</b> 
+            <ul>
+                {% if d.super_approval %}
+                <li><b>Supervisor:</b> {{ d.super_approval }} on {{ d.super_date }}</li>
+                {% endif%}
+                {% if d.writer_approval %}
+                <li><b>Writer:</b> {{ d.writer_approval }} on {{ d.writer_date }}</li>
+                {% endif %}
+                {% if d.client_approval %}
+                <li><b>Client:</b> {{ d.client_approval }} on {{ d.client_date }}</li>
+                {% endif %}
+            </ul>
+            <b>Design Notes:</b> <br />
+            {{ d.design_notes }}
+        </div>
+    </div>
+</div>

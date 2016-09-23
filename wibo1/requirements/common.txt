@@ -1,0 +1,45 @@
+# requitements/common.txt
+Django==1.4.5
+
+grapelli==2.8.1
+
+# Pinax stuff
+pinax-theme-bootstrap==3.0a2
+pinax-theme-bootstrap-account==1.0b2
+django-user-accounts==1.0b8
+django-forms-bootstrap==2.0.3.post1
+metron==1.1
+#pinax-utils==1.0b1.dev3
+eventlog==0.6
+django-jsonfield==0.8.12
+
+# sys admin type stuff
+pycrypto
+Fabric==1.4.3
+South==0.7.6
+PIL
+
+# for cvs input
+django-csvimport
+
+# for search
+#Whoosh
+#django-haystack
+django_select2==3.1.3
+
+# for notifications
+# django-heythere
+
+# for reports
+# holy crap this is a lot of undocumented dependencies
+#xlwt
+#BeautifulSoup
+#reportlab
+#html5lib
+#pisa
+#django-model-report
+# the pypy package for django-model-report is wonky
+# - download the repository from github 
+#   git://github.com/juanpex/django-model-report.git
+# - move 'model_report/templates/' to the template folder
+# - change the template so it fits with pinax_theme_bootstrap

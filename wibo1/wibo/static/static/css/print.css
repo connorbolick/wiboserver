@@ -1,0 +1,81 @@
+ @media print {
+    /* stolen from bootstrap.css media max-width:767px */
+    [class*="span"],
+    .row-fluid [class*="span"] {
+      display: block;
+      width: auto;
+      margin-left: 0;
+    }
+    .span12,
+    .row-fluid .span12 {
+      width: 100%;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+    }
+    .span6,
+    .row-fluid .span6{
+        width: 50%;
+        display: block;
+        float: left;
+    }
+    a:after, footer, hr, .navbar{ display: none; }
+
+    /* push footer to bottom of page 
+     * doesn't actually work, FYI */
+    .inv-footer {
+        bottom:0;
+    }
+}
+h1, h2, h3, h4 {
+    line-height:14px;
+    margin: 8px 0;
+}
+h2 {
+    font-size:24px;
+}
+h3 {
+    font-size:14px;
+}
+h4 {
+    font-size:12px;
+}
+body {
+    font-size:10px;
+    line-height:14px;
+}
+address {
+    line-height:14px;
+    margin-bottom:14px;
+}
+p {
+    margin: 0 0 8px;
+}
+.table {
+    margin-bottom: 14px;
+}
+.table th, .table td {
+    padding: 4px;
+    line-height: 14px;
+}
+dl {
+    margin-bottom: 20px;
+}
+dt, dd{
+    line-height: 14px;
+}
+.well {
+    height:auto !important;
+    overflow:visible !important;
+    padding:10px;
+}
+input {
+    display:none;
+}
+table, td, th, tr{
+    border: 1px solid black !important;
+}
+.table-signature td{
+    padding-top: 30px;
+
+}

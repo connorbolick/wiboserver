@@ -1,0 +1,77 @@
+{% load cards_extras %}
+<table class="table table-bordered">
+    {% for company,departments in by_department.items %}
+    <thead>
+        <tr>
+            <th>{{ company }}</th>
+            <th># of Jobs</th>
+            <th>% of Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for department,values in departments.items %}
+        <tr>
+            <td>{{ department }}</td>
+            <td>{{ values.count }}</td>
+            <td>{{ values.percent|percent }}</td>
+        </tr>
+        {%endfor%}
+    </tbody>
+    {% endfor %}
+    <tr>
+        <td><b>Total</b></td>
+        <td>{{total_jobs}}</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td><b>Corrected Total</b></td>
+        <td>{{total_co_jobs}}</td>
+        <td></td>
+    </tr>
+</table>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Count</th>
+            <th>% of Total</th>
+            <th>Cumulative %</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for category,count in by_category %}
+        <tr>
+            <td>{{category}}</td>
+            <td>{{count.count}}</td>
+            <td>{{count.prop|percent}}</td>
+            <td>{{count.cumulative|percent}}</td>
+        </tr>
+        {% endfor%}
+        <tr>
+            <td><b>Total Categories</b></td>
+            <td>{{total_prods}}</td>
+            <td>{{cumulated_prop}}</td>
+            <td>{{cumulated_prop}}</td>
+        </tr>
+        <tr>
+            <td><b>Corrected Total</b></td>
+            <td>{{total_prod_jobs}}</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </tbody>
+</table>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Jobs with Printed Design</th>
+            <th>Jobs with Non-Printed Design</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{printed_design_total}}</td>
+            <td>{{nonprinted_design_total}}</td>
+        </tr>
+    </tbody>
+</table>

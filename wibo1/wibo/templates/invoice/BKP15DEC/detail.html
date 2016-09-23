@@ -1,0 +1,24 @@
+{% extends "invoice/index.html" %}
+
+{# inv = Invoice object #}
+{# jobs = InvQuantity objects #}
+
+{%block head_title %}{{block.super}} {{ inv.invoice_number }}{% endblock head_title%}
+
+{% block body %}
+<h2>Invoice</h2>
+<div class="row-fluid"><a class="btn btn-primary" href="{% url invoice.views.edit_invoice inv.pk %}">Edit</a> <a class="btn btn-success" href="{% url invoice.views.print_invoice inv.pk %}">Print</a> <a class="btn btn-info" href="{% url invoice.views.new_payment inv.pk %}">Add Payment</a></div>
+
+{% include "invoice/invoice.html" with inv=inv jobs=jobs %}
+<hr/>
+<div class="row-fluid">
+    <div class="span6">
+        <h5>Notes:</h5>
+        <p>{{inv.notes|linebreaks}}</p>
+    </div>
+    <div class="span6"><h5>Invoice Log:</h5> 
+        <b>Created by:</b> <a href="{%url employeedetailurl inv.created_user.pk%}">{{inv.created_user.get_full_name|default:"CB+D"}}</a> on {{inv.created_date}}<br/>
+        <b>Updated by:</b> <a href="{%url employeedetailurl inv.updated_user.pk%}">{{inv.updated_user.get_full_name|default:"CB+D"}}</a> on {{inv.updated_date}}
+    </div>
+</div>
+{% endblock body %}
